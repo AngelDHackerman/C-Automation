@@ -249,9 +249,11 @@ $RECYCLE.BIN/
 
 bin/
 bin
+DemoQaAutomation/bin
+/home/angel/C#Automation/DemoQaAutomation/bin/
 
 obj/
 obj
-
+DemoQaAutomation/obj
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,windows,macos,python
