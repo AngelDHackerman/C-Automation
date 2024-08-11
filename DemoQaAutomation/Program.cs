@@ -17,10 +17,11 @@ class Program
         var playwright = await Playwright.CreateAsync();
         var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
-            Headless = false
+            Headless = false,   // allow to see the browser while testing
         });
 
         var page = await browser.NewPageAsync();
+        await page.SetViewportSizeAsync(1920, 1080);
         await page.GotoAsync("https://demoqa.com/text-box");
 
         // Seleccionar elementos usando XPath e interactuar con ellos
