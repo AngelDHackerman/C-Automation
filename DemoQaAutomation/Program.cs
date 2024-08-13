@@ -27,15 +27,45 @@ class DemoQaTests {
         await Setup();
 
         // Fill out the form with valid values
-        await _page.FillAsync("//*[@id='userName']", "Angel Hackerman");
-        await _page.FillAsync("//*[@id='userEmail']", "angel@testing.com"); 
-        await _page.FillAsync("//*[@id='currentAddress']", "123 Fake Street");
-        await _page.FillAsync("//*[@id='permanentAddress']", "Another Fake Street");
 
-        // Validate that values were properly added (assertions)
-        
+        string fullName = "Angel Hackerman";
+        string email = "Angel@test.com";
+        string currentAddress = "123 Street";
+        string permanentAddress = "Main Road 130";
+
+        await _page.FillAsync("//*[@id='userName']", fullName);
+        await _page.FillAsync("//*[@id='userEmail']", email); 
+        await _page.FillAsync("//*[@id='currentAddress']", currentAddress);
+        await _page.FillAsync("//*[@id='permanentAddress']", permanentAddress);
+
+        // Click on the "Submit" button
+        await _page.ClickAsync("//*[@id='submit']");
+
+        // Capture the added values (assertions)
+        var nameText = await _page.TextContentAsync("#name");
+        var emailText = await _page.TextContentAsync("#email");
+        var currentAddressText = await _page.TextContentAsync("#currentAddress");
+        var permanentAddressText = await _page.TextContentAsync("#permanentAddress");
+
+        // Make sure that inputs and captured text match
+        Console.WriteLine(nameText.Contains($"Name:{fullName}") ? "Name is correct": "Name is incorrect");
+        Console.WriteLine(emailText.Contains($"Email:{email}") ? "Email is correct" : "Email is incorrect");
+        Console.WriteLine(currentAddressText.Contains($"Current Address: {currentAddress}") ? "Current address is correct" : "Current address is incorrect");
+        Console.WriteLine(permanentAddressText.Contains($"Permanent Address: {permanentAddress}") ? "Permanent Address is correct" : "Permanent Address is incorrect");
+
+        // Wait 3 seconds in order to see the values on the screen
+        await _page.WaitForTimeoutAsync(3000);
+
+        await Teardown();
     }
 
+}
+
+class Program { 
+    public static async Task Main(string[] args) {
+        var test = new DemoQaTests();
+        await test.TestHappyPath();
+    }
 }
 
 // https://chatgpt.com/c/fc5489f4-2f06-4514-ad7f-8e664d098a64
