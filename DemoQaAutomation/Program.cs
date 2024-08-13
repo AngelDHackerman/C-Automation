@@ -67,6 +67,3 @@ class Program {
         await test.TestHappyPath();
     }
 }
-
-// https://chatgpt.com/c/fc5489f4-2f06-4514-ad7f-8e664d098a64
-// seguir trabajando con esa conversacion
